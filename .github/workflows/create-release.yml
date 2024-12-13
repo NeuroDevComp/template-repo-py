@@ -28,4 +28,4 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: true
-          body: ${{ steps.create-release-notes.outputs.release-notes }}
+          body: "Some changes"
