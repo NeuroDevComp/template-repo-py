@@ -23,8 +23,4 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: true
-          run: |
-            gh release create "$tag" \
-              --repo="$GITHUB_REPOSITORY" \
-              --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
-              --generate-notes
+          body: ${{ steps.create-release-notes.outputs.release-notes }}
