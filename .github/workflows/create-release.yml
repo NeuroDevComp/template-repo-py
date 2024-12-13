@@ -9,11 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Create a Release
-        uses: elgohr/Github-Release-Action@v5
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Generate Changelog
+        run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          title: babylab
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
+          repository: NeuroDevComp/template-repo-py
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           prerelease: true
+          generate_release_notes: true
